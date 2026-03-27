@@ -1,29 +1,50 @@
-@import './styles/tokens.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@500;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   body {
-    @apply antialiased bg-[#0d0d14] text-white;
+    @apply antialiased bg-background text-primary font-inter m-0 p-0 overflow-hidden;
   }
 }
 
 @layer components {
   /* Premium Glassmorphism Utility */
   .glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
+    @apply bg-surface/40 backdrop-blur-xl border border-white/5;
+  }
+
+  /* Deeper Glass for floating elements */
+  .glass-deep {
+    @apply bg-surface/80 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)];
   }
 
   /* Accent Glow Utility */
   .glow {
-    @apply shadow-[0_0_20px_rgba(108,99,255,0.3)];
+    @apply shadow-[0_0_30px_rgba(99,102,241,0.5)];
+  }
+
+  /* Subtle border glow */
+  .glow-border {
+    @apply border border-accent shadow-[0_0_15px_rgba(99,102,241,0.3)];
   }
 
   /* Syne Heading Utility */
   .syne {
     font-family: 'Syne', sans-serif;
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full transition-colors hover:bg-white/20;
   }
 }
