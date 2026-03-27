@@ -1,0 +1,53 @@
+{
+  "project": "SocialPulse",
+  "version": "1.0.0",
+  "workflow": {
+    "auto_discuss": true,
+    "auto_plan": false,
+    "auto_execute": false,
+    "auto_verify": true,
+    "require_plan_approval": true,
+    "atomic_commits": true,
+    "commit_per_task": true,
+    "branch_per_phase": true
+  },
+  "git": {
+    "branching": "phase",
+    "branch_prefix": "phase/",
+    "main_branch": "main",
+    "commit_style": "conventional"
+  },
+  "models": {
+    "planning": "claude-opus-4-6",
+    "execution": "claude-sonnet-4-6",
+    "verification": "claude-sonnet-4-6",
+    "research": "claude-sonnet-4-6"
+  },
+  "phases": {
+    "naming": "numeric",
+    "current": "01-foundation"
+  },
+  "context": {
+    "always_include": [
+      ".planning/PROJECT.md",
+      ".planning/STATE.md",
+      "src/utils/platformConfig.js"
+    ],
+    "phase_include": [
+      ".planning/phases/{phase}/{phase}-PLAN.md",
+      ".planning/phases/{phase}/{phase}-CONTEXT.md"
+    ]
+  },
+  "verification": {
+    "run_tests": true,
+    "test_command": "npm run test",
+    "lint_command": "npm run lint",
+    "build_check": true,
+    "build_command": "npm run build"
+  },
+  "notifications": {
+    "on_phase_complete": true,
+    "on_task_complete": false,
+    "on_error": true
+  }
+}
