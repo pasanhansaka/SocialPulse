@@ -1,11 +1,11 @@
 import React from 'react'
-import { 
-  LayoutDashboard, 
-  PenSquare, 
-  FolderOpen, 
-  Inbox, 
-  BarChart3, 
-  Settings, 
+import {
+  LayoutDashboard,
+  PenSquare,
+  FolderOpen,
+  Inbox,
+  BarChart3,
+  Settings,
   User,
   ChevronLeft,
   ChevronRight,
@@ -28,9 +28,8 @@ const Sidebar = () => {
   ]
 
   return (
-    <aside className={`h-screen glass flex flex-col transition-all duration-300 border-r border-white/5 ${
-      sidebarCollapsed ? 'w-20' : 'w-64'
-    }`}>
+    <aside className={`h-screen glass flex flex-col transition-all duration-300 border-r border-white/5 ${sidebarCollapsed ? 'w-20' : 'w-64'
+      }`}>
       {/* Brand Header */}
       <div className="p-6 flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-[#14141d] flex items-center justify-center overflow-hidden shrink-0 border border-white/10 shadow-lg">
@@ -47,11 +46,10 @@ const Sidebar = () => {
           <button
             key={item.id}
             onClick={() => setActiveScreen(item.id)}
-            className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all ${
-              activeScreen === item.id 
-                ? 'bg-accent/20 text-accent glow border border-accent/20' 
+            className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all ${activeScreen === item.id
+                ? 'bg-accent/20 text-accent glow border border-accent/20'
                 : 'text-text-secondary hover:bg-white/5 hover:text-white'
-            }`}
+              }`}
           >
             <item.icon className="w-5 h-5 shrink-0" />
             {!sidebarCollapsed && <span className="font-medium">{item.label}</span>}
@@ -65,7 +63,7 @@ const Sidebar = () => {
           onClick={toggleSidebar}
           className="w-full flex items-center justify-center p-2 rounded-lg hover:bg-white/5 text-text-muted"
         >
-          {sidebarCollapsed ? <ChevronRight size={20}/> : <ChevronLeft size={20}/>}
+          {sidebarCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
         </button>
       </div>
     </aside>
