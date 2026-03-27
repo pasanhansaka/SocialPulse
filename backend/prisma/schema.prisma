@@ -1,0 +1,76 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String?
+  createdAt     DateTime  @default(now())
+  accounts      ConnectedAccount[]
+  posts         Post[]
+}
+
+model ConnectedAccount {
+  id              String   @id @default(uuid())
+  userId          String
+  platform        Platform
+  platformUserId  String   // ID on the social platform
+  username        String
+  avatar          String?
+  accessToken     String   @db.Text
+  refreshToken    String?  @db.Text
+  tokenExpiry     DateTime?
+  scopes          String[]
+  isActive        Boolean  @default(true)
+  user            User     @relation(fields: [userId], references: [id])
+  posts           Post[]
+  
+  @@unique([userId, platform, platformUserId])
+}
+
+model Post {
+  id              String   @id @default(uuid())
+  userId          String
+  content         String   @db.Text
+  media           Json?    // [{url, type, size, platform_specific}]
+  platforms       Platform[]
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  status          PostStatus @default(draft)
+  platformResults Json?    // [{platform, status, postUrl, error, analytics}]
+  user            User     @relation(fields: [userId], references: [id])
+  account         ConnectedAccount? @relation(fields: [accountId], references: [id])
+  accountId       String?
+  
+  @@index([userId, status])
+  @@index([scheduledAt])
+}
+
+enum Platform {
+  TWITTER
+  INSTAGRAM
+  FACEBOOK
+  LINKEDIN
+  TIKTOK
+  YOUTUBE
+  PINTEREST
+  THREADS
+  BLUESKY
+}
+
+enum PostStatus {
+  draft
+  scheduled
+  published
+  failed
+  partial
+}
